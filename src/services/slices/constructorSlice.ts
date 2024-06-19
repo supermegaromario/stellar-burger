@@ -17,11 +17,19 @@ const burgerConstructorSlice = createSlice({
   reducers: {
     addBurgerIngredient: {
       reducer: (state, action: PayloadAction<TConstructorIngredient>) => {
-        if (action.payload.type === 'bun') state.bun = action.payload;
-        else state.ingredients.push(action.payload);
+        const existingIngredient = state.ingredients.find(
+          (item) => item._id === action.payload._id
+        );
+        if (action.payload.type === 'bun') {
+          state.bun = action.payload;
+        } else if (existingIngredient) {
+          existingIngredient.count += 1;
+        } else {
+          state.ingredients.push({ ...action.payload, count: 1 });
+        }
       },
       prepare: (ingredient: TIngredient) => ({
-        payload: { ...ingredient, id: nanoid() }
+        payload: { ...ingredient, id: nanoid(), count: 1 }
       })
     },
     moveBurgerIngredient: (state, action) => {
@@ -31,10 +39,23 @@ const burgerConstructorSlice = createSlice({
         state.ingredients[index]
       ];
     },
-    removeBurgerIngredient: (state, action) => {
-      state.ingredients.splice(action.payload, 1);
+    removeBurgerIngredient: (state, action: PayloadAction<string>) => {
+      const ingredientIndex = state.ingredients.findIndex(
+        (item) => item.id === action.payload
+      );
+      if (ingredientIndex !== -1) {
+        const ingredient = state.ingredients[ingredientIndex];
+        if (ingredient.count > 1) {
+          ingredient.count -= 1;
+        } else {
+          state.ingredients.splice(ingredientIndex, 1);
+        }
+      }
     },
-    resetBurgerIngredient: (state) => (state = initialState)
+    resetBurgerIngredient: (state) => {
+      state.bun = null;
+      state.ingredients = [];
+    }
   },
   selectors: {
     selectBurgerIngredients: (state) => state

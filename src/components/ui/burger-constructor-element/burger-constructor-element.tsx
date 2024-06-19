@@ -23,8 +23,8 @@ export const BurgerConstructorElementUI: FC<BurgerConstructorElementUIProps> =
         />
         <div className={`${styles.element_fullwidth} ml-2`}>
           <ConstructorElement
-            text={ingredient.name}
-            price={ingredient.price}
+            text={`${ingredient.name} (${ingredient.count})`}
+            price={ingredient.price * ingredient.count}
             thumbnail={ingredient.image}
             handleClose={handleClose}
           />

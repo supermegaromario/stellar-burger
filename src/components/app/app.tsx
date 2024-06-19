@@ -17,19 +17,18 @@ import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { ProtectedRoute } from '../protected-route';
 import { useEffect } from 'react';
 import { getIngredients } from '../../services/slices/ingredientSlice';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../services/store';
+import { useAppDispatch } from '../../services/hooks';
 import { getUser } from '../../services/slices/userSlice';
 import { closeOrderModal } from '../../services/slices/orderSlice';
 
 const App = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getIngredients());
     dispatch(getUser());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className={styles.app}>
