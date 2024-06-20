@@ -17,16 +17,8 @@ const burgerConstructorSlice = createSlice({
   reducers: {
     addBurgerIngredient: {
       reducer: (state, action: PayloadAction<TConstructorIngredient>) => {
-        const existingIngredient = state.ingredients.find(
-          (item) => item._id === action.payload._id
-        );
-        if (action.payload.type === 'bun') {
-          state.bun = action.payload;
-        } else if (existingIngredient) {
-          existingIngredient.count += 1;
-        } else {
-          state.ingredients.push({ ...action.payload, count: 1 });
-        }
+        if (action.payload.type === 'bun') state.bun = action.payload;
+        else state.ingredients.push(action.payload);
       },
       prepare: (ingredient: TIngredient) => ({
         payload: { ...ingredient, id: nanoid(), count: 1 }

@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
 import { TIngredient } from '@utils-types';
 import { getIngredientsApi } from '@api';
 
@@ -25,9 +24,7 @@ const ingredientSlice = createSlice({
   initialState,
   reducers: {},
   selectors: {
-    selectIngredients: function (state) {
-      return state.ingredients;
-    },
+    selectIngredients: (state) => state.ingredients,
     selectLoadingIngredients: (state) => state.loading
   },
   extraReducers: (builder) => {
