@@ -7,7 +7,7 @@ import {
   selectTotalFeeds,
   selectTotalTodayFeeds
 } from '../../services/slices/feedSlice';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../services/hooks';
 
 const getOrders = (orders: TOrder[], status: string): number[] =>
   orders
@@ -16,9 +16,9 @@ const getOrders = (orders: TOrder[], status: string): number[] =>
     .slice(0, 20);
 
 export const FeedInfo: FC = () => {
-  const orders: TOrder[] = useSelector(selectOrdersFeeds);
-  const total = useSelector(selectTotalFeeds);
-  const totalToday = useSelector(selectTotalTodayFeeds);
+  const orders: TOrder[] = useAppSelector(selectOrdersFeeds);
+  const total = useAppSelector(selectTotalFeeds);
+  const totalToday = useAppSelector(selectTotalTodayFeeds);
   const feed = { total: total, totalToday: totalToday };
 
   const readyOrders = getOrders(orders, 'done');

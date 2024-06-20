@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../services/hooks';
 import { Navigate, useLocation } from 'react-router-dom';
 import { selectIsAuthChecked } from '../../services/slices/userSlice';
 import { getCookie } from '../../utils/cookie';
@@ -15,7 +15,7 @@ export const ProtectedRoute = ({
   children
 }: ProtectedRouteProps) => {
   const isAuth = getCookie('accessToken');
-  const isAuthChecked = useSelector(selectIsAuthChecked);
+  const isAuthChecked = useAppSelector(selectIsAuthChecked);
   const location = useLocation();
 
   if (!isAuthChecked) {

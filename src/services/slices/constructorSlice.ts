@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction, nanoid } from '@reduxjs/toolkit';
 import { TIngredient, TConstructorIngredient } from '@utils-types';
+import { RootState } from '../store';
 
 interface IBurgerConstructorState {
   bun: TConstructorIngredient | null;
@@ -48,11 +49,16 @@ const burgerConstructorSlice = createSlice({
       state.bun = null;
       state.ingredients = [];
     }
-  },
-  selectors: {
-    selectBurgerIngredients: (state) => state
   }
 });
+
+export const selectIngredientCount = (state: RootState, id: string) => {
+  if (state.burgerConstructor.bun?._id === id) {
+    return 1;
+  }
+  return state.burgerConstructor.ingredients.filter((item) => item._id === id)
+    .length;
+};
 
 export const {
   addBurgerIngredient,
@@ -61,5 +67,7 @@ export const {
   resetBurgerIngredient
 } = burgerConstructorSlice.actions;
 
-export const { selectBurgerIngredients } = burgerConstructorSlice.selectors;
+export const selectBurgerIngredients = (state: RootState) =>
+  state.burgerConstructor;
+
 export const burgerConstructorReducer = burgerConstructorSlice.reducer;

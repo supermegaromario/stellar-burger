@@ -1,24 +1,27 @@
-import React, { FC, memo, useState } from 'react';
+import React, { FC, memo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useAppSelector } from '../../../services/hooks';
 import styles from './burger-ingredient.module.css';
-
 import {
   Counter,
   CurrencyIcon,
   AddButton
 } from '@zlden/react-developer-burger-ui-components';
-
 import { TBurgerIngredientUIProps } from './type';
+import { RootState } from '../../../services/store';
+import { selectIngredientCount } from '../../../services/slices/constructorSlice';
 
 export const BurgerIngredientUI: FC<TBurgerIngredientUIProps> = memo(
-  ({ ingredient, count, handleAdd }) => {
+  ({ ingredient, handleAdd }) => {
     const { image, price, name, _id } = ingredient;
     const location = useLocation();
-    const [addCount, setAddCount] = useState<number>(0);
+
+    const count = useAppSelector((state: RootState) =>
+      selectIngredientCount(state, _id)
+    );
 
     const handleAddClick = () => {
       handleAdd();
-      setAddCount(addCount + 1);
     };
 
     return (
@@ -28,7 +31,7 @@ export const BurgerIngredientUI: FC<TBurgerIngredientUIProps> = memo(
           to={`/ingredients/${_id}`}
           state={{ backgroundLocation: location }}
         >
-          {addCount > 0 && <Counter count={addCount} />} {}
+          {count > 0 && <Counter count={count} />}
           <img className={styles.img} src={image} alt='картинка ингредиента.' />
           <div className={`${styles.cost} mt-2 mb-2`}>
             <p className='text text_type_digits-default mr-2'>{price}</p>
