@@ -20,6 +20,7 @@ export const DefaultOrderCard: Story = {
     orderInfo: {
       ingredientsInfo: [
         {
+          id: '3',
           _id: '111',
           name: 'Булка',
           type: 'top',
@@ -35,6 +36,7 @@ export const DefaultOrderCard: Story = {
       ],
       ingredientsToShow: [
         {
+          id: '4',
           _id: '111',
           name: 'Булка',
           type: 'top',
@@ -48,6 +50,7 @@ export const DefaultOrderCard: Story = {
           image_mobile: ''
         },
         {
+          id: '5',
           _id: '111',
           name: 'Начинка',
           type: 'top',

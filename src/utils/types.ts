@@ -1,4 +1,5 @@
 export type TIngredient = {
+  id: string;
   _id: string;
   name: string;
   type: string;
@@ -14,6 +15,7 @@ export type TIngredient = {
 
 export type TConstructorIngredient = TIngredient & {
   id: string;
+  count: number;
 };
 
 export type TOrder = {
