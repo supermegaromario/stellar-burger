@@ -20,6 +20,7 @@ export const DefaultOrderInfo: Story = {
     orderInfo: {
       ingredientsInfo: {
         bun: {
+          id: '6',
           _id: '211',
           name: 'Булка',
           type: 'bun',

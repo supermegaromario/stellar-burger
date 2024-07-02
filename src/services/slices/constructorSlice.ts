@@ -7,7 +7,7 @@ interface IBurgerConstructorState {
   ingredients: TConstructorIngredient[];
 }
 
-const initialState: IBurgerConstructorState = {
+export const initialState: IBurgerConstructorState = {
   bun: null,
   ingredients: []
 };
@@ -22,10 +22,13 @@ const burgerConstructorSlice = createSlice({
         else state.ingredients.push(action.payload);
       },
       prepare: (ingredient: TIngredient) => ({
-        payload: { ...ingredient, id: nanoid(), count: 1 }
+        payload: { ...ingredient, id: ingredient.id || nanoid(), count: 1 }
       })
     },
-    moveBurgerIngredient: (state, action) => {
+    moveBurgerIngredient: (
+      state,
+      action: PayloadAction<{ index: number; step: number }>
+    ) => {
       const { index, step } = action.payload;
       [state.ingredients[index], state.ingredients[index + step]] = [
         state.ingredients[index + step],

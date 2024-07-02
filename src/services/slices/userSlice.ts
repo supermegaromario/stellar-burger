@@ -9,7 +9,7 @@ import {
   logoutApi,
   registerUserApi,
   updateUserApi
-} from '@api';
+} from '../../utils/burger-api';
 import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
 
 export interface TUserState {
@@ -20,7 +20,7 @@ export interface TUserState {
   isAuthChecked: boolean;
 }
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   user: {
     email: '',
     name: ''
